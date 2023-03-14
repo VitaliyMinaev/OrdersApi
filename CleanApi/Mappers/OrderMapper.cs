@@ -10,20 +10,18 @@ public static class OrderMapper
         return new OrderResponse
         {
             Id = entity.Id,
-            Customer = new CustomerResponse
-            {
-                Id = entity.Customer.Id,
-                FullName = entity.Customer.FullName
-            },
-            Product = new ProductResponse
-            {
-                Id = entity.Product.Id,
-                Name = entity.Product.Name,
-                Price = entity.Product.Price,
-                ReleaseDate = entity.Product.ReleaseDate
-            },
+            Customer = entity.Customer.ToResponse(),
+            Product = entity.Product.ToResponse(),
             Delivered = entity.Delivered,
             DeliveryDate = entity.DeliveryDate
+        };
+    }
+
+    public static OrderEntity ToEntity(this OrderResponse response)
+    {
+        return new OrderEntity
+        {
+            Id = response.Id
         };
     }
 }
