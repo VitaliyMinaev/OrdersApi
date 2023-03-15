@@ -19,6 +19,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+        services.AddSingleton<IRepository<ProductEntity>, InMemoryProductRepository>();
+        services.AddSingleton<IRepository<CustomerEntity>,InMemoryCustomerRepository>();
         services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
         
         services.AddControllers();

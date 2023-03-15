@@ -1,5 +1,6 @@
 using CleanApi.Contracts.Responses;
 using CleanApi.Entities;
+using CleanApi.Persistence;
 using CleanApi.Repositories.Abstract;
 
 namespace CleanApi.Repositories;
@@ -9,24 +10,8 @@ public class InMemoryOrderRepository : IRepository<OrderEntity>
     private List<OrderEntity> _orders;
     public InMemoryOrderRepository()
     {
-        _orders = Enumerable.Range(0, Random.Shared.Next(1, 4)).Select(x => new OrderEntity()
-        {
-            Id = Guid.NewGuid(),
-            Customer = new CustomerEntity
-            {
-                Id = Guid.NewGuid(),
-                FullName = string.Empty
-            },
-            Product = new ProductEntity
-            {
-                Id = Guid.NewGuid(),
-                Name = string.Empty,
-                Price = (decimal)Random.Shared.Next(100, 600),
-                ReleaseDate = DateTime.Now.AddDays(-Random.Shared.Next(14, 41))
-            },
-            Delivered = false,
-            DeliveryDate = DateTime.Now.AddDays(Random.Shared.Next(7, 14))
-        }).ToList();
+        var data = DataPreparations.GetInstance();
+        _orders = data.Orders;
     }
 
     public async Task<IEnumerable<OrderEntity>> GetAllAsync(CancellationToken cancellationToken)

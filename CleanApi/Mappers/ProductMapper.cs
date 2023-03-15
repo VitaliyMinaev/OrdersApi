@@ -11,7 +11,8 @@ public static class ProductMapper
         {
             Id = entity.Id,
             ReleaseDate = entity.ReleaseDate,
-            Price = entity.Price
+            Price = entity.Price,
+            Name = entity.Name
         };
     }
     public static ProductEntity ToEntity(this ProductResponse response)
@@ -20,7 +21,8 @@ public static class ProductMapper
         {
             Id = response.Id,
             ReleaseDate = response.ReleaseDate,
-            Price = response.Price
+            Price = response.Price,
+            Name = response.Name
         };
     }
 }
