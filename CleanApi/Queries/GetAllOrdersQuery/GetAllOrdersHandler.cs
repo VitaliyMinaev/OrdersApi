@@ -1,4 +1,5 @@
 using CleanApi.Contracts.Responses;
+using CleanApi.Entities;
 using CleanApi.Mappers;
 using CleanApi.Repositories.Abstract;
 using MediatR;
@@ -7,8 +8,8 @@ namespace CleanApi.Queries.GetAllOrdersQuery;
 
 public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<OrderResponse>>
 {
-    private readonly IOrderRepository _orderRepository;
-    public GetAllOrdersHandler(IOrderRepository orderRepository)
+    private readonly IRepository<OrderEntity> _orderRepository;
+    public GetAllOrdersHandler(IRepository<OrderEntity> orderRepository)
     {
         _orderRepository = orderRepository;
     }

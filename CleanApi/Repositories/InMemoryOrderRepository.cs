@@ -4,7 +4,7 @@ using CleanApi.Repositories.Abstract;
 
 namespace CleanApi.Repositories;
 
-public class InMemoryOrderRepository : IOrderRepository
+public class InMemoryOrderRepository : IRepository<OrderEntity>
 {
     private List<OrderEntity> _orders;
     public InMemoryOrderRepository()

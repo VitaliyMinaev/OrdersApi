@@ -1,4 +1,5 @@
 using System.Reflection;
+using CleanApi.Entities;
 using CleanApi.Repositories;
 using CleanApi.Repositories.Abstract;
 using MediatR;
@@ -18,7 +19,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-        services.AddSingleton<IOrderRepository, InMemoryOrderRepository>();
+        services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
         
         services.AddControllers();
         

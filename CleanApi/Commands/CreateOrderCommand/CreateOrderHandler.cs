@@ -8,9 +8,9 @@ namespace CleanApi.Commands.CreateOrderCommand;
 
 public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderResponse>
 {
-    private readonly IOrderRepository _orderRepository;
+    private readonly IRepository<OrderEntity> _orderRepository;
 
-    public CreateOrderHandler(IOrderRepository orderRepository)
+    public CreateOrderHandler(IRepository<OrderEntity> orderRepository)
     {
         _orderRepository = orderRepository;
     }
