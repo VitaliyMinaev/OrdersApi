@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CleanApi.Commands.CreateOrderCommand;
 
-public class CreateOrderCommand : IRequest<Result<OrderResponse>>
+public class CreateOrderCommand : ICommand<OrderResponse>
 {
     public Guid ProductId { get; }
     public Guid CustomerId { get; }

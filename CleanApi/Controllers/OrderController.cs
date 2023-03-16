@@ -6,6 +6,7 @@ using CleanApi.Contracts.Responses;
 using CleanApi.Queries.GetAllOrdersQuery;
 using CleanApi.Queries.GetOrderByIdQuery;
 using CleanApi.Strategies.Abstract;
+using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,7 +59,12 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> UpdateOrder([FromRoute] Guid id, [FromBody] UpdateOrderRequest request, CancellationToken cancellationToken)
     {
         var command = new UpdateOrderCommand(id, request.Delivered);
-        OrderResponse response = await _mediator.Send(command, cancellationToken);
-        return response == null ? NotFound() : Ok(response);
+        Result<OrderResponse> response = await _mediator.Send(command, cancellationToken);
+        if (response.IsFailed)
+        {
+            var failedModel = _failedModelCreator.CreateErrorStateModel(response.Errors);
+            return ValidationProblem(failedModel);
+        }
+        return Ok(response.Value);
     }
 }
