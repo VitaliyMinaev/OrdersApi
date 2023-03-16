@@ -2,6 +2,7 @@ using CleanApi.Contracts.Responses;
 using CleanApi.Entities;
 using CleanApi.Mappers;
 using CleanApi.Repositories.Abstract;
+using Domain;
 using FluentResults;
 using MediatR;
 
@@ -17,11 +18,11 @@ public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, Result<Ord
 
     public async Task<Result<OrderResponse>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
-        OrderEntity order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
+        OrderDomain order = (await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken)).ToDomain();
+
+        order.MarkAsDelivered();
         
-        order.Delivered = request.Delivered;
-        
-        var result = await _orderRepository.UpdateAsync(order, cancellationToken);
+        var result = await _orderRepository.UpdateAsync(order.ToEntity(), cancellationToken);
         if (result == false)
             return Result.Fail(new Error("Can not update order", new Error("Database")));
         
