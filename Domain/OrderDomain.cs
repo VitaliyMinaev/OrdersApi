@@ -11,6 +11,11 @@ public class OrderDomain : BaseDomain
     
     public OrderDomain(Guid id, CustomerDomain customer, ProductDomain product, DateTime deliveryDate, bool delivered) : base(id)
     {
+        if (product is null || customer is null)
+            throw new ArgumentException($"{customer} and {product} can not be a null");
+
+        ValidateDeliveryDateIfInvalidThrowException(deliveryDate);
+        
         Product = product;
         Customer = customer;
         DeliveryDate = deliveryDate;
@@ -19,9 +24,8 @@ public class OrderDomain : BaseDomain
 
     public bool ChangeDeliveryDate(DateTime newDate)
     {
-        if (newDate < DateTime.Now && Delivered == false)
-            throw new ArgumentException($"Invalid: {nameof(newDate)} argument. Delivery date can not be less than current date");
-
+        ValidateDeliveryDateIfInvalidThrowException(newDate);
+        
         if (Delivered == true)
             return false;
         
@@ -32,5 +36,11 @@ public class OrderDomain : BaseDomain
     {
         Delivered = true;
         return Delivered;
+    }
+
+    private void ValidateDeliveryDateIfInvalidThrowException(DateTime deliveryDate)
+    {
+        if (deliveryDate <= DateTime.Now && Delivered == false)
+            throw new ArgumentException($"Invalid: {nameof(DeliveryDate)} argument. Delivery date can not be less than current date");
     }
 }
