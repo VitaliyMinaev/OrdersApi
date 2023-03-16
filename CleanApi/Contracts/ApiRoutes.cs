@@ -11,5 +11,6 @@ public static class ApiRoutes
         public const string GetAll = $"{Base}/{nameof(Order)}";
         public const string GetById = $"{Base}/{nameof(Order)}" + "/{id}";
         public const string Create = $"{Base}/{nameof(Order)}";
+        public const string Update = $"{Base}/{nameof(Order)}" + "/{id}";
     }
 }

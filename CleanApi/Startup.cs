@@ -1,7 +1,11 @@
 using System.Reflection;
 using CleanApi.Entities;
+using CleanApi.PipelineBehaviors;
 using CleanApi.Repositories;
 using CleanApi.Repositories.Abstract;
+using CleanApi.Strategies;
+using CleanApi.Strategies.Abstract;
+using FluentValidation;
 using MediatR;
 
 namespace CleanApi;
@@ -18,11 +22,15 @@ public class Startup
     // Add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
         services.AddSingleton<IRepository<ProductEntity>, InMemoryProductRepository>();
         services.AddSingleton<IRepository<CustomerEntity>,InMemoryCustomerRepository>();
         services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
         
+        services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+
+        services.AddScoped<IModelStateCreator, DefaultModelStateCreator>();
         services.AddControllers();
         
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

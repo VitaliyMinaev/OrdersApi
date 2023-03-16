@@ -1,9 +1,11 @@
 using CleanApi.Contracts.Responses;
+using CleanApi.Messaging.Abstract;
+using FluentResults;
 using MediatR;
 
 namespace CleanApi.Commands.CreateOrderCommand;
 
-public class CreateOrderCommand : IRequest<OrderResponse>
+public class CreateOrderCommand : IRequest<Result<OrderResponse>>
 {
     public Guid ProductId { get; }
     public Guid CustomerId { get; }

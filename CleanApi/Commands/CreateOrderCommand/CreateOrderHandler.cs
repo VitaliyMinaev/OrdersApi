@@ -2,11 +2,12 @@ using CleanApi.Contracts.Responses;
 using CleanApi.Entities;
 using CleanApi.Mappers;
 using CleanApi.Repositories.Abstract;
+using FluentResults;
 using MediatR;
 
 namespace CleanApi.Commands.CreateOrderCommand;
 
-public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderResponse>
+public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Result<OrderResponse>>
 {
     private readonly IRepository<OrderEntity> _orderRepository;
 
@@ -15,7 +16,7 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderRespo
         _orderRepository = orderRepository;
     }
 
-    public async Task<OrderResponse> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Result<OrderResponse>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var orders = await _orderRepository.GetAllAsync(cancellationToken);
         if (orders is null || orders.Count() == 0)
@@ -38,6 +39,6 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderRespo
         if (result == false)
             throw new InvalidOperationException();
 
-        return orderEntity.ToResponse();
+        return Result.Ok(orderEntity.ToResponse());
     }
 }
