@@ -2,7 +2,7 @@ using CleanApi.Entities.Abstract;
 
 namespace CleanApi.Entities;
 
-public class CustomerEntity : EntityBase
+public class CustomerEntity : BaseEntity
 {
     public string FullName { get; set; }
 }

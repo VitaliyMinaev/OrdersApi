@@ -10,35 +10,29 @@ namespace CleanApi.Commands.CreateOrderCommand;
 public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Result<OrderResponse>>
 {
     private readonly IRepository<OrderEntity> _orderRepository;
-
-    public CreateOrderHandler(IRepository<OrderEntity> orderRepository)
+    private readonly IRepository<CustomerEntity> _customerRepository;
+    private readonly IRepository<ProductEntity> _productRepository;
+    
+    public CreateOrderHandler(IRepository<OrderEntity> orderRepository, IRepository<CustomerEntity> customerRepository, IRepository<ProductEntity> productRepository)
     {
         _orderRepository = orderRepository;
+        _customerRepository = customerRepository;
+        _productRepository = productRepository;
     }
 
     public async Task<Result<OrderResponse>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync(cancellationToken);
-        if (orders is null || orders.Count() == 0)
-        {
-            throw new NotImplementedException();
-        }
+        var customer = (await _customerRepository.GetByIdAsync(request.CustomerId, cancellationToken)).ToDomain();
+        var product = (await _productRepository.GetByIdAsync(request.ProductId, cancellationToken)).ToDomain();
 
-        var firstOrder = orders.First();
-        var orderEntity = new OrderEntity
-        {
-            Id = Guid.NewGuid(),
-            Customer = firstOrder.Customer,
-            Product = firstOrder.Product,
-            Delivered = false,
-            DeliveryDate = DateTime.Now.AddDays(Random.Shared.Next(2, 7))
-        };
+        // Business logic
+        var order = customer.OrderProduct(product);
         
-        var result = await _orderRepository.AddAsync(orderEntity, cancellationToken);
+        var result = await _orderRepository.AddAsync(order.ToEntity(), cancellationToken);
 
         if (result == false)
             throw new InvalidOperationException();
 
-        return Result.Ok(orderEntity.ToResponse());
+        return Result.Ok(order.ToResponse());
     }
 }

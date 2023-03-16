@@ -3,7 +3,7 @@ using CleanApi.Entities.Abstract;
 
 namespace CleanApi.Entities;
 
-public class OrderEntity : EntityBase
+public class OrderEntity : BaseEntity
 {
     public ProductEntity Product { get; set; }
     public CustomerEntity Customer { get; set; }

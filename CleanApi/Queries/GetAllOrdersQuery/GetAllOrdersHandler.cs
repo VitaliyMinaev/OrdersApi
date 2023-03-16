@@ -16,6 +16,7 @@ public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, IEnumerabl
 
     public async Task<IEnumerable<OrderResponse>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        return (await _orderRepository.GetAllAsync(cancellationToken)).Select(x => x.ToResponse());
+        var orders = await _orderRepository.GetAllAsync(cancellationToken);
+        return (orders.Select(x => x.ToResponse()));
     }
 }

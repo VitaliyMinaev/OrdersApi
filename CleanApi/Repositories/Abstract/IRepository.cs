@@ -3,7 +3,7 @@ using CleanApi.Entities.Abstract;
 namespace CleanApi.Repositories.Abstract;
 
 public interface IRepository<T>
-    where T : EntityBase
+    where T : BaseEntity
 {
     Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);

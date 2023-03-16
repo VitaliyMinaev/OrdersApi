@@ -2,7 +2,7 @@ using CleanApi.Entities.Abstract;
 
 namespace CleanApi.Entities;
 
-public class ProductEntity : EntityBase
+public class ProductEntity : BaseEntity
 {
     public string Name { get; set; }
     public decimal Price { get; set; }

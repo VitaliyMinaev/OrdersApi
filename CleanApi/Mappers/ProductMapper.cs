@@ -1,5 +1,6 @@
 using CleanApi.Contracts.Responses;
 using CleanApi.Entities;
+using Domain;
 
 namespace CleanApi.Mappers;
 
@@ -15,6 +16,16 @@ public static class ProductMapper
             Name = entity.Name
         };
     }
+    public static ProductResponse ToResponse(this ProductDomain domain)
+    {
+        return new ProductResponse
+        {
+            Id = domain.Id,
+            ReleaseDate = domain.ReleaseDate,
+            Price = domain.Price,
+            Name = domain.Name
+        };
+    }
     public static ProductEntity ToEntity(this ProductResponse response)
     {
         return new ProductEntity
@@ -24,5 +35,20 @@ public static class ProductMapper
             Price = response.Price,
             Name = response.Name
         };
+    }
+    public static ProductEntity ToEntity(this ProductDomain domain)
+    {
+        return new ProductEntity
+        {
+            Id = domain.Id,
+            ReleaseDate = domain.ReleaseDate,
+            Price = domain.Price,
+            Name = domain.Name
+        };
+    }
+
+    public static ProductDomain ToDomain(this ProductEntity entity)
+    {
+        return new ProductDomain(entity.Id, entity.Name, entity.Price, entity.ReleaseDate);
     }
 }
