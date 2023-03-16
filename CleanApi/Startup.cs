@@ -27,6 +27,7 @@ public class Startup
         services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
         
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggerPipelineBehavior<,>))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
 

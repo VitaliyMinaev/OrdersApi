@@ -32,6 +32,8 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         
         if (validationFailures.Any())
         {
+            _logger.LogWarning("There are some validation failures");
+            
             var responseType = typeof(TResponse);
             TResponse invalidResponse;
             if (responseType.IsGenericType)
