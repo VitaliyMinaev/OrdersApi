@@ -12,11 +12,15 @@ public static class ApiRoutes
         public const string GetById = $"{Base}/{nameof(Order)}" + "/{id}";
         public const string Create = $"{Base}/{nameof(Order)}";
         public const string Update = $"{Base}/{nameof(Order)}" + "/{id}";
+        public const string Delete = $"{Base}/{nameof(Order)}" + "/{id}";
     }
 
     public static class Customer
     {
+        public const string GetAll = $"{Base}/{nameof(Customer)}";
         public const string GetById = $"{Base}/{nameof(Customer)}" + "/{id}";
         public const string Create = $"{Base}/{nameof(Customer)}";
+        public const string Update = $"{Base}/{nameof(Customer)}" + "/{id}";
+        public const string Delete = $"{Base}/{nameof(Customer)}" + "/{id}";
     }
 }

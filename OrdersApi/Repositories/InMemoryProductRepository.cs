@@ -44,4 +44,11 @@ public class InMemoryProductRepository : IRepository<ProductEntity>
         exists = item;
         return true;
     }
+    
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Task.Delay(400, cancellationToken);
+        int result = _products.RemoveAll(x => x.Id == id);
+        return result > 0;
+    }
 }

@@ -48,4 +48,11 @@ public class InMemoryOrderRepository : IRepository<OrderEntity>
         exist.Delivered = order.Delivered;
         return true;
     }
+    
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Task.Delay(400, cancellationToken);
+        int result = _orders.RemoveAll(x => x.Id == id);
+        return result > 0;
+    }
 }

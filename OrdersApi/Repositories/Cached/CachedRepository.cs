@@ -59,14 +59,30 @@ public class CachedRepository<T> : IRepository<T>, IDisposable
         var result = await _orderRepository.UpdateAsync(item, cancellationToken);
         if (result == false)
             return false;
-        
-        _cache.Remove(CacheKeys.GetAll);
-        _cache.Remove(CacheKeys.GetById.Replace("{id}", item.Id.ToString()));
+
+        RemoveItemFromCache(item.Id);
+        return true;
+    }
+
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _orderRepository.DeleteAsync(id, cancellationToken);
+
+        if (result == false)
+            return false;
+
+        RemoveItemFromCache(id);
         return true;
     }
 
     public void Dispose()
     {
         _cache.Dispose();
+    }
+
+    private void RemoveItemFromCache(Guid id)
+    {
+        _cache.Remove(CacheKeys.GetAll);
+        _cache.Remove(CacheKeys.GetById.Replace("{id}", id.ToString()));
     }
 }

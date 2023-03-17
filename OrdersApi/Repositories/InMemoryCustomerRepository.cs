@@ -39,7 +39,14 @@ public class InMemoryCustomerRepository : IRepository<CustomerEntity>
         var toUpdate = _customers.FirstOrDefault(x => x.Id == item.Id);
         if (toUpdate is null)
             return false;
-        toUpdate = item;
+        toUpdate.FullName = item.FullName;
         return true;
+    }
+
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Task.Delay(400, cancellationToken);
+        int result = _customers.RemoveAll(x => x.Id == id);
+        return result > 0;
     }
 }

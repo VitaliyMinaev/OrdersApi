@@ -9,4 +9,5 @@ public interface IRepository<T>
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<bool> AddAsync(T item, CancellationToken cancellationToken);
     Task<bool> UpdateAsync(T item, CancellationToken cancellationToken);
+    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
 }

@@ -18,6 +18,11 @@ public class CustomerDomain : BaseDomain
         _orders = orders.ToList();
     }
 
+    public void RenameUser(string fullName)
+    {
+        FullName = fullName;
+    }
+
     public IReadOnlyCollection<OrderDomain> Orders
     {
         get => new ReadOnlyCollection<OrderDomain>(_orders);
