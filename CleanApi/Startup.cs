@@ -28,7 +28,10 @@ public class Startup
         services.AddSingleton<IRepository<ProductEntity>, InMemoryProductRepository>();
         services.AddSingleton<IRepository<CustomerEntity>,InMemoryCustomerRepository>();
         services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
-        services.Decorate<IRepository<OrderEntity>, OrderCachedRepository>();
+        
+        services.Decorate<IRepository<OrderEntity>, CachedRepository<OrderEntity>>();
+        services.Decorate<IRepository<CustomerEntity>, CachedRepository<CustomerEntity>>();
+        services.Decorate<IRepository<ProductEntity>, CachedRepository<ProductEntity>>();
         
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggerPipelineBehavior<,>))

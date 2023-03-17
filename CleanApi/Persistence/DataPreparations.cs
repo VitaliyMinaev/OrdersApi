@@ -10,20 +10,20 @@ public class DataPreparations
     private List<OrderEntity> _orders;
     private DataPreparations()
     {
-        _products = Enumerable.Range(1, Random.Shared.Next(2, 4)).Select(x => new ProductEntity
+        _products = Enumerable.Range(1, Random.Shared.Next(3, 8)).Select(x => new ProductEntity
         {
             Id = Guid.NewGuid(),
             Name = GetRandomProductName(),
             Price = (decimal)Random.Shared.Next(100, 600),
-            ReleaseDate = DateTime.Now.AddDays(-Random.Shared.Next(14, 41))
+            ReleaseDate = DateTime.Now.AddDays(-Random.Shared.Next(14, 89))
         }).ToList();
-        _customers = Enumerable.Range(1, Random.Shared.Next(2, 3)).Select(x => 
+        _customers = Enumerable.Range(1, Random.Shared.Next(4, 7)).Select(x => 
             new CustomerEntity
             {
                 Id = Guid.NewGuid(), 
                 FullName = GetRandomFullname()
             }).ToList();
-        _orders = Enumerable.Range(0, Random.Shared.Next(1, 4)).Select(x => new OrderEntity()
+        _orders = Enumerable.Range(0, Random.Shared.Next(4, 8)).Select(x => new OrderEntity()
         {
             Id = Guid.NewGuid(),
             Customer = _customers[Random.Shared.Next(0, _customers.Count)],

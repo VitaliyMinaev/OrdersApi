@@ -44,7 +44,8 @@ public class InMemoryOrderRepository : IRepository<OrderEntity>
         if (exist is null)
             return false;
 
-        exist = order;
+        exist.DeliveryDate = order.DeliveryDate;
+        exist.Delivered = order.Delivered;
         return true;
     }
 }
