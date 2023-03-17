@@ -3,6 +3,7 @@ using CleanApi.Entities;
 using CleanApi.PipelineBehaviors;
 using CleanApi.Repositories;
 using CleanApi.Repositories.Abstract;
+using CleanApi.Repositories.Cached;
 using CleanApi.Strategies;
 using CleanApi.Strategies.Abstract;
 using FluentValidation;
@@ -22,9 +23,12 @@ public class Startup
     // Add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddMemoryCache();
+        
         services.AddSingleton<IRepository<ProductEntity>, InMemoryProductRepository>();
         services.AddSingleton<IRepository<CustomerEntity>,InMemoryCustomerRepository>();
         services.AddSingleton<IRepository<OrderEntity>, InMemoryOrderRepository>();
+        services.Decorate<IRepository<OrderEntity>, OrderCachedRepository>();
         
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggerPipelineBehavior<,>))
