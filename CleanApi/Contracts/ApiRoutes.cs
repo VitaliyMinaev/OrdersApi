@@ -13,4 +13,10 @@ public static class ApiRoutes
         public const string Create = $"{Base}/{nameof(Order)}";
         public const string Update = $"{Base}/{nameof(Order)}" + "/{id}";
     }
+
+    public static class Customer
+    {
+        public const string GetById = $"{Base}/{nameof(Customer)}" + "/{id}";
+        public const string Create = $"{Base}/{nameof(Customer)}";
+    }
 }
