@@ -2,6 +2,7 @@ using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrdersApi.Commands.CreateOrderCommand;
+using OrdersApi.Commands.DeleteOrderCommand;
 using OrdersApi.Commands.UpdateOrderCommand;
 using OrdersApi.Contracts;
 using OrdersApi.Contracts.Requests;
@@ -47,8 +48,7 @@ public class OrderController : ControllerBase
 
         if (response.IsFailed)
         {
-            var failedModel = _failedModelCreator.CreateErrorStateModel(response.Errors);
-            return ValidationProblem(failedModel);
+            return CreateAndReturnFailedModelState(response.Errors);
         }
         
         var created = response.Value;
@@ -62,9 +62,22 @@ public class OrderController : ControllerBase
         Result<OrderResponse> response = await _mediator.Send(command, cancellationToken);
         if (response.IsFailed)
         {
-            var failedModel = _failedModelCreator.CreateErrorStateModel(response.Errors);
-            return ValidationProblem(failedModel);
+            return CreateAndReturnFailedModelState(response.Errors);
         }
         return Ok(response.Value);
+    }
+
+    [HttpDelete, Route(ApiRoutes.Order.Delete)]
+    public async Task<IActionResult> DeleteOrder([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteOrderCommand(id);
+        Result response = await _mediator.Send(command, cancellationToken);
+        return response.IsFailed == true ? CreateAndReturnFailedModelState(response.Errors) : NoContent();
+    }
+    
+    private IActionResult CreateAndReturnFailedModelState(List<IError> errors)
+    {
+        var failedModel = _failedModelCreator.CreateErrorStateModel(errors);
+        return ValidationProblem(failedModel);
     }
 }
