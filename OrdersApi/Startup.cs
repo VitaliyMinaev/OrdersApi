@@ -14,6 +14,7 @@ namespace OrdersApi;
 public class Startup
 {
     public IConfiguration Configuration { get; }
+    private const string PolicyName = "Application policy";
 
     public Startup(IConfiguration configuration)
     {
@@ -44,6 +45,16 @@ public class Startup
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy(PolicyName, builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
     }
     
     // Configure the HTTP request pipeline.
@@ -60,6 +71,8 @@ public class Startup
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseCors(PolicyName);
 
         app.Run();
     }
