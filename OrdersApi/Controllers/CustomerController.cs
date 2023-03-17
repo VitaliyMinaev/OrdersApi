@@ -68,7 +68,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpDelete, Route(ApiRoutes.Customer.Delete)]
-    public async Task<IActionResult> Update([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var command = new DeleteCustomerCommand(id);
         var response = await _mediator.Send(command, cancellationToken);

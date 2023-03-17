@@ -25,7 +25,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet, Route(ApiRoutes.Order.GetAll)]
-    public async Task<IActionResult> GetOrders(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var query = new GetAllOrdersQuery();
         var response = await _mediator.Send(query, cancellationToken);
@@ -33,7 +33,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet, Route(ApiRoutes.Order.GetById)]
-    public async Task<IActionResult> GetOrder([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var query = new GetOrderByIdQuery(id);
         OrderResponse? response = await _mediator.Send(query, cancellationToken);
@@ -41,7 +41,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost, Route(ApiRoutes.Order.Create)]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateOrderCommand(request.ProductId, request.CustomerId);
         var response = await _mediator.Send(command, cancellationToken);
@@ -56,7 +56,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPut, Route(ApiRoutes.Order.Update)]
-    public async Task<IActionResult> UpdateOrder([FromRoute] Guid id, [FromBody] UpdateOrderRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOrderRequest request, CancellationToken cancellationToken)
     {
         var command = new UpdateOrderCommand(id, request.Delivered);
         Result<OrderResponse> response = await _mediator.Send(command, cancellationToken);
@@ -68,7 +68,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpDelete, Route(ApiRoutes.Order.Delete)]
-    public async Task<IActionResult> DeleteOrder([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var command = new DeleteOrderCommand(id);
         Result response = await _mediator.Send(command, cancellationToken);
