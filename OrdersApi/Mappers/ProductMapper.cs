@@ -1,4 +1,5 @@
 using Domain;
+using OrdersApi.Contracts.Requests;
 using OrdersApi.Contracts.Responses;
 using OrdersApi.Entities;
 

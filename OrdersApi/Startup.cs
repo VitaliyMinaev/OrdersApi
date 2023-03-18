@@ -1,6 +1,6 @@
-using System.Reflection;
-using FluentValidation;
 using MediatR;
+using FluentValidation;
+using System.Reflection;
 using OrdersApi.Entities;
 using OrdersApi.PipelineBehaviors;
 using OrdersApi.Repositories;

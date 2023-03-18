@@ -14,7 +14,6 @@ public static class ApiRoutes
         public const string Update = $"{Base}/{nameof(Order)}" + "/{id}";
         public const string Delete = $"{Base}/{nameof(Order)}" + "/{id}";
     }
-
     public static class Customer
     {
         public const string GetAll = $"{Base}/{nameof(Customer)}";
@@ -22,5 +21,13 @@ public static class ApiRoutes
         public const string Create = $"{Base}/{nameof(Customer)}";
         public const string Update = $"{Base}/{nameof(Customer)}" + "/{id}";
         public const string Delete = $"{Base}/{nameof(Customer)}" + "/{id}";
+    }
+    public static class Product
+    {
+        public const string GetAll = $"{Base}/{nameof(Product)}";
+        public const string GetById = $"{Base}/{nameof(Product)}" + "/{id}";
+        public const string Create = $"{Base}/{nameof(Product)}";
+        public const string Update = $"{Base}/{nameof(Product)}" + "/{id}";
+        public const string Delete = $"{Base}/{nameof(Product)}" + "/{id}";
     }
 }
