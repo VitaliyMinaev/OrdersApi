@@ -15,11 +15,13 @@ public class OrderRepository : IRepository<OrderEntity>
 
     public async Task<List<OrderEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _databaseContext.Orders.AsNoTracking().ToListAsync(cancellationToken);
+        return await _databaseContext.Orders.Include(x => x.Customer).Include(x => x.Product)
+            .AsNoTracking().ToListAsync(cancellationToken);
     }
     public async Task<OrderEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _databaseContext.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await _databaseContext.Orders.AsNoTracking().Include(x => x.Customer)
+            .Include(x => x.Product).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<bool> AddAsync(OrderEntity item, CancellationToken cancellationToken)

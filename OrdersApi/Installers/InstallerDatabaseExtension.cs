@@ -35,4 +35,20 @@ public static class InstallerDatabaseExtension
         var migrationInstaller = new DatabaseMigrationInstaller(context, logger);
         migrationInstaller.InstallMigrations();
     }
+
+    public static async Task LoadDataAsync(this IApplicationBuilder applicationBuilder, ILogger logger)
+    {
+        using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+        {
+            var dataLoader = serviceScope.ServiceProvider.GetService<IDataLoader>();
+
+            if (dataLoader == null)
+            {
+                logger.LogError($"{nameof(dataLoader)} is null. Can not load data");
+                return;
+            }
+
+            await dataLoader.LoadDataAsync();
+        }
+    }
 }

@@ -26,8 +26,8 @@ public class DataPreparations
         _orders = Enumerable.Range(0, Random.Shared.Next(4, 8)).Select(x => new OrderEntity()
         {
             Id = Guid.NewGuid(),
-            Customer = _customers[Random.Shared.Next(0, _customers.Count)],
-            Product = _products[Random.Shared.Next(0, _products.Count)],
+            CustomerId = _customers[Random.Shared.Next(0, _customers.Count)].Id,
+            ProductId = _products[Random.Shared.Next(0, _products.Count)].Id,
             Delivered = false,
             DeliveryDate = DateTime.Now.AddDays(Random.Shared.Next(7, 14))
         }).ToList();

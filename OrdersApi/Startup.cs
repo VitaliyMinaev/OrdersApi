@@ -3,6 +3,8 @@ using FluentValidation;
 using System.Reflection;
 using OrdersApi.Entities;
 using OrdersApi.Installers;
+using OrdersApi.Persistence;
+using OrdersApi.Persistence.Abstract;
 using OrdersApi.PipelineBehaviors;
 using OrdersApi.Repositories;
 using OrdersApi.Repositories.Abstract;
@@ -34,6 +36,7 @@ public class Startup
         services.Decorate<IRepository<OrderEntity>, CachedRepository<OrderEntity>>();
         services.Decorate<IRepository<CustomerEntity>, CachedRepository<CustomerEntity>>();
         services.Decorate<IRepository<ProductEntity>, CachedRepository<ProductEntity>>();
+        services.AddScoped<IDataLoader, SqliteDataLoader>();
         
         services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggerPipelineBehavior<,>))
@@ -59,7 +62,7 @@ public class Startup
     }
     
     // Configure the HTTP request pipeline.
-    public void Configure(WebApplication app, IWebHostEnvironment env)
+    public async Task Configure(WebApplication app, IWebHostEnvironment env)
     {
         if (app.Environment.IsDevelopment())
         {
@@ -74,8 +77,11 @@ public class Startup
 
         app.UseCors(PolicyName);
 
-        if(app.Environment.IsProduction())
+        if (Environment.GetEnvironmentVariable("DatabaseCreated") == null || Environment.GetEnvironmentVariable("DatabaseCreated") == "false")
+        {
             app.InstallMigrations(app.Logger);
+            await app.LoadDataAsync(app.Logger);
+        }
 
         app.Run();
     }
