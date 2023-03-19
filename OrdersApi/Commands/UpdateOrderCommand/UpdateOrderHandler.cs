@@ -20,7 +20,7 @@ public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, Result<Ord
     {
         OrderDomain order = (await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken)).ToDomain();
 
-        order.MarkAsDelivered();
+        order.ChangeDeliveryStatus(request.Delivered);
         
         var result = await _orderRepository.UpdateAsync(order.ToEntity(), cancellationToken);
         if (result == false)

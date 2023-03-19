@@ -32,9 +32,9 @@ public class OrderDomain : BaseDomain
         DeliveryDate = newDate;
         return true;
     }
-    public bool MarkAsDelivered()
+    public bool ChangeDeliveryStatus(bool newStatus)
     {
-        Delivered = true;
+        Delivered = newStatus;
         return Delivered;
     }
 
