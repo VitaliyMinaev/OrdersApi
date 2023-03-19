@@ -5,7 +5,7 @@ using OrdersApi.Repositories.Abstract;
 
 namespace OrdersApi.Repositories.Cached;
 
-public class CachedRepository<T> : IRepository<T>, IDisposable
+public class CachedRepository<T> : IRepository<T>
     where T : BaseEntity
 {
     private readonly IRepository<T> _orderRepository;
@@ -16,7 +16,7 @@ public class CachedRepository<T> : IRepository<T>, IDisposable
         _cache = cache;
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
     {
         List<T>? orders = null;
         if (_cache.TryGetValue(CacheKeys.GetAll, out orders))
@@ -73,11 +73,6 @@ public class CachedRepository<T> : IRepository<T>, IDisposable
 
         RemoveItemFromCache(id);
         return true;
-    }
-
-    public void Dispose()
-    {
-        _cache.Dispose();
     }
 
     private void RemoveItemFromCache(Guid id)
