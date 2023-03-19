@@ -12,6 +12,6 @@ public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
         RuleFor(x => x.OrderId)
             .NotEmpty()
             .MustAsync(async (id, cancellation) => (await orderRepository.GetByIdAsync(id, cancellation)) != null)
-            .WithMessage("There is no product with given id");
+            .WithMessage("There is no order with given id");
     }
 }

@@ -41,7 +41,9 @@ public class InMemoryProductRepository : IRepository<ProductEntity>
         if (exists is null)
             return false;
         
-        exists = item;
+        exists.Name = item.Name;
+        exists.Price = item.Price;
+        exists.ReleaseDate = item.ReleaseDate;
         return true;
     }
     

@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrdersApi.Commands.CreateProductCommand;
+using OrdersApi.Commands.DeleteProductCommand;
+using OrdersApi.Commands.UpdateProductCommand;
 using OrdersApi.Contracts;
 using OrdersApi.Contracts.Requests;
 using OrdersApi.Queries.GetAllProductsQuery;
@@ -47,15 +49,27 @@ public class ProductController : ControllerBase
         return Created(ApiRoutes.Product.GetById.Replace("{id}", response.Value.Id.ToString()), response.Value);
     }
     [HttpPut, Route(ApiRoutes.Product.Update)]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequest request)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var command = new UpdateProductCommand(id, request.Name, request.Price, request.ReleaseDate);
+        var response = await _mediator.Send(command, cancellationToken);
+        
+        if (response.IsFailed)
+            return CreateAndReturnFailedModelState(response.Errors);
+
+        return Ok(response.Value);
     }
 
     [HttpDelete, Route(ApiRoutes.Product.Delete)]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var command = new DeleteProductCommand(id);
+        var response = await _mediator.Send(command, cancellationToken);
+        
+        if (response.IsFailed)
+            return CreateAndReturnFailedModelState(response.Errors);
+
+        return NoContent();
     }
 
     private IActionResult CreateAndReturnFailedModelState(List<IError> errors)
