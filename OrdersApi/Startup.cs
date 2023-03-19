@@ -2,6 +2,7 @@ using MediatR;
 using FluentValidation;
 using System.Reflection;
 using OrdersApi.Entities;
+using OrdersApi.Installers;
 using OrdersApi.PipelineBehaviors;
 using OrdersApi.Repositories;
 using OrdersApi.Repositories.Abstract;
@@ -25,6 +26,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddMemoryCache();
+        
+        services.InstallSqliteDatabase(Configuration);
         
         services.AddSingleton<IRepository<ProductEntity>, InMemoryProductRepository>();
         services.AddSingleton<IRepository<CustomerEntity>,InMemoryCustomerRepository>();
@@ -65,7 +68,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
@@ -73,6 +75,9 @@ public class Startup
         app.MapControllers();
 
         app.UseCors(PolicyName);
+
+        if(app.Environment.IsProduction())
+            app.InstallMigrations(app.Logger);
 
         app.Run();
     }
