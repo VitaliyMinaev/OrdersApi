@@ -64,16 +64,7 @@ public class DataPreparations
         return fullNames[Random.Shared.Next(0, fullNames.Length)];
     }
 
-    public List<ProductEntity> Products
-    {
-        get => _products;
-    }
-    public List<CustomerEntity> Customers
-    {
-        get => _customers;
-    }
-    public List<OrderEntity> Orders
-    {
-        get => _orders;
-    }
+    public List<ProductEntity> Products => _products;
+    public List<CustomerEntity> Customers => _customers;
+    public List<OrderEntity> Orders => _orders;
 }
