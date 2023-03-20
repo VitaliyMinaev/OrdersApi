@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using OrdersApi.Entities;
 using OrdersApi.Persistence;
@@ -16,12 +15,16 @@ public class CustomerRepository : IRepository<CustomerEntity>
 
     public async Task<List<CustomerEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _databaseContext.Customers.AsNoTracking().ToListAsync(cancellationToken);
+        return await _databaseContext.Customers.AsNoTracking()
+            .Include(x => x.Orders)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<CustomerEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _databaseContext.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await _databaseContext.Customers.AsNoTracking()
+            .Include(x => x.Orders)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<bool> AddAsync(CustomerEntity item, CancellationToken cancellationToken)

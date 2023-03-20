@@ -4,12 +4,6 @@ using OrdersApi.Entities;
 
 namespace OrdersApi.Mappers;
 
-/*
- * {
-  "productId": "54048af0-a0ac-444f-af53-e9056898343b",
-  "customerId": "41cc5ac2-3ef7-4e10-a157-5a3e1cfc56e5"
-}
- */
 public static class OrderMapper
 {
     public static OrderResponse ToResponse(this OrderEntity entity)
@@ -17,7 +11,7 @@ public static class OrderMapper
         return new OrderResponse
         {
             Id = entity.Id,
-            Customer = entity.Customer.ToResponse(),
+            Customer = entity.Customer.ToOrderResponse(),
             Product = entity.Product.ToResponse(),
             Delivered = entity.Delivered,
             DeliveryDate = entity.DeliveryDate
@@ -28,7 +22,7 @@ public static class OrderMapper
         return new OrderResponse
         {
             Id = domain.Id,
-            Customer = domain.Customer.ToResponse(),
+            Customer = domain.Customer.ToOrderResponse(),
             Product = domain.Product.ToResponse(),
             Delivered = domain.Delivered,
             DeliveryDate = domain.DeliveryDate

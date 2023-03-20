@@ -11,36 +11,26 @@ public static class CustomerMapper
         return new CustomerResponse
         {
             Id = entity.Id,
+            FullName = entity.FullName,
+            OrdersId = entity.Orders?.Select(x => x.Id).ToList()
+        };
+    }
+    public static CustomerForOrderResponse ToOrderResponse(this CustomerDomain domain)
+    {
+        return new CustomerForOrderResponse
+        {
+            Id = domain.Id,
+            FullName = domain.FullName
+        };
+    }
+    public static CustomerForOrderResponse ToOrderResponse(this CustomerEntity entity)
+    {
+        return new CustomerForOrderResponse
+        {
+            Id = entity.Id,
             FullName = entity.FullName
         };
     }
-
-    public static CustomerResponse ToResponse(this CustomerDomain domain)
-    {
-        return new CustomerResponse
-        {
-            Id = domain.Id,
-            FullName = domain.FullName
-        };
-    }
-
-    public static CustomerEntity ToEntity(this CustomerResponse response)
-    {
-        return new CustomerEntity
-        {
-            Id = response.Id,
-            FullName = response.FullName
-        };
-    }
-    public static CustomerEntity ToEntity(this CustomerDomain domain)
-    {
-        return new CustomerEntity
-        {
-            Id = domain.Id,
-            FullName = domain.FullName
-        };
-    }
-
     public static CustomerDomain ToDomain(this CustomerEntity entity)
     {
         return new CustomerDomain(entity.Id, entity.FullName);

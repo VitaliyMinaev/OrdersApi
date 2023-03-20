@@ -38,7 +38,7 @@ public class OrderTests
     [Fact]
     public void UpdateOrder_MarkAsDelivered_DeliveredFieldTrue()
     {
-        _orderToTest.ChangeDeliveryStatus();
+        _orderToTest.ChangeDeliveryStatus(true);
         bool expected = true;
         
         Assert.Equal(expected, _orderToTest.Delivered);
