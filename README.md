@@ -58,6 +58,3 @@ To run this project, you will need to add the following environment variables
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/87979065/226609919-6cacc567-dc61-4f19-8ad9-100f04949270.png)
-![image](https://user-images.githubusercontent.com/87979065/226610104-5710c77b-1eba-43f8-a461-1b8d29ee0caf.png)
-![image](https://user-images.githubusercontent.com/87979065/226610190-2e6fe2d8-3f05-4d34-8033-d1ebc4a5165d.png)
-![image](https://user-images.githubusercontent.com/87979065/226610298-9fd079ad-73af-4dc5-ad47-59e401e77edb.png)
