@@ -49,6 +49,7 @@ To run this project, you will need to add the following environment variables
     <li><code>Entity Framework Core</code> - as ORM</li>
     <li><code>Sqlite</code> - as data storage</li>
     <li><code>In Memory caching</code> - with <code>Scrutor</code></li>
+    <li><code>XUnit</code> - as framework for testing</li>
 </ul>
 
 ## 👨‍💻 Authors
