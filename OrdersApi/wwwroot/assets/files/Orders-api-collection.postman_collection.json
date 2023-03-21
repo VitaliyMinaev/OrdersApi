@@ -1,0 +1,832 @@
+{
+	"info": {
+		"_postman_id": "95bc50f7-8fbb-44a7-81ab-e9eaa779b4c5",
+		"name": "Orders api collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22708424"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Order/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get order by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Order/bdb38e50-a729-4eb3-8be9-d4b6890eb433",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"bdb38e50-a729-4eb3-8be9-d4b6890eb433"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сreate Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": \"e6234e4d-0c13-40b2-874b-00c540796e9c\",\r\n  \"customerId\": \"2fe0e516-70d6-4946-8430-52a6f42a98a0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Order",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Order"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Order/a63616aa-2656-4c0b-81cf-d4db3983243d",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"a63616aa-2656-4c0b-81cf-d4db3983243d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update order",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"delivered\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Order/a63616aa-2656-4c0b-81cf-d4db3983243d",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"a63616aa-2656-4c0b-81cf-d4db3983243d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Get customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/7d6158d6-9cfc-4805-9a2c-92a641b8d207",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"7d6158d6-9cfc-4805-9a2c-92a641b8d207"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fullName\": \"Vitaliy minaev\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/d823c03e-fcb8-4cda-b95d-7c743ed34678",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"d823c03e-fcb8-4cda-b95d-7c743ed34678"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Vitaliy minaev changed\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Get Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Product/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Product/fb1218b8-7334-4096-a1a6-9a2e01091597",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"fb1218b8-7334-4096-a1a6-9a2e01091597"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Lenovo Ideapad L340\",\r\n  \"price\": 890.50,\r\n  \"releaseDate\": \"2022-11-20\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Product/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Lenovo Ideapad L340\",\r\n  \"price\": 890.90,\r\n  \"releaseDate\": \"2022-12-20\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Product/1970aec6-11bf-436a-984b-5c85c16494b6",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"1970aec6-11bf-436a-984b-5c85c16494b6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Product/fb1218b8-7334-4096-a1a6-9a2e01091597",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"fb1218b8-7334-4096-a1a6-9a2e01091597"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Web",
+			"item": [
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Order/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get order by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Order/ec260cf5-381f-43fa-8c13-6e1d901f95c9",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"ec260cf5-381f-43fa-8c13-6e1d901f95c9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сreate Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": \"e6234e4d-0c13-40b2-874b-00c540796e9c\",\r\n  \"customerId\": \"2fe0e516-70d6-4946-8430-52a6f42a98a0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Order/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update order",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"delivered\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Order/a63616aa-2656-4c0b-81cf-d4db3983243d",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"a63616aa-2656-4c0b-81cf-d4db3983243d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Order/a63616aa-2656-4c0b-81cf-d4db3983243d",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Order",
+										"a63616aa-2656-4c0b-81cf-d4db3983243d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Get customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Customer/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Customer/d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fullName\": \"Vitaliy minaev\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Customer/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Vitaliy minaev changed\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Customer/Customer/d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"Customer",
+										"d7528ab1-d220-4932-b1e1-b6e3dbb3f1aa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7228/api/v1/Customer/d823c03e-fcb8-4cda-b95d-7c743ed34678",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7228",
+									"path": [
+										"api",
+										"v1",
+										"Customer",
+										"d823c03e-fcb8-4cda-b95d-7c743ed34678"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Get Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Product/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Product/fb1218b8-7334-4096-a1a6-9a2e01091597",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"fb1218b8-7334-4096-a1a6-9a2e01091597"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Lenovo Ideapad L340\",\r\n  \"price\": 890.50,\r\n  \"releaseDate\": \"2022-11-20\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Product/",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Lenovo Ideapad L340\",\r\n  \"price\": 890.90,\r\n  \"releaseDate\": \"2022-12-20\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Product/1970aec6-11bf-436a-984b-5c85c16494b6",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"1970aec6-11bf-436a-984b-5c85c16494b6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://clean-order-api.herokuapp.com/api/v1/Product/fb1218b8-7334-4096-a1a6-9a2e01091597",
+									"protocol": "https",
+									"host": [
+										"clean-order-api",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"Product",
+										"fb1218b8-7334-4096-a1a6-9a2e01091597"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,39 @@
+
+body {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+main h3, main h4 {
+    font-weight: 700;
+}
+main h3 i, main h4 i {
+    font-size: 26px;
+    top: 3px;
+}
+
+code {
+    font-size: 18px;
+}
+
+i {
+    font-size: 22px;
+    position: relative;
+    top: 4px;
+}
+
+.download-json i.bxs-file-json {
+    font-size: 24px;
+}
+.download-json {
+    font-size: 18px;
+}
+
+ul.contacts {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.color-red {
+    color: rgb(255, 103, 153);
+}
