@@ -58,4 +58,5 @@ To run this project, you will need to add the following environment variables
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/87979065/226609919-6cacc567-dc61-4f19-8ad9-100f04949270.png)
+![image](https://user-images.githubusercontent.com/87979065/226611153-a8a57234-b0b5-4d47-b9b2-15b8f6be5fac.png)
+
