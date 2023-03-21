@@ -5,6 +5,7 @@
 
 .idea/
 *.db
+Properties/
 
 # User-specific files
 *.rsuser
