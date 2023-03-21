@@ -6,7 +6,7 @@ using OrdersApi.Commands.DeleteOrderCommand;
 using OrdersApi.Commands.UpdateOrderCommand;
 using OrdersApi.Contracts;
 using OrdersApi.Contracts.Requests;
-using OrdersApi.Contracts.Responses;
+using OrdersApi.Contracts.Responses.Order;
 using OrdersApi.Queries.GetAllOrdersQuery;
 using OrdersApi.Queries.GetOrderByIdQuery;
 using OrdersApi.Strategies.Abstract;
@@ -28,43 +28,41 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var query = new GetAllOrdersQuery();
-        var response = await _mediator.Send(query, cancellationToken);
-        return Ok(response);
+        var models = await _mediator.Send(query, cancellationToken);
+        return Ok(models.Select(x => new GetOrderResponse { Id = x.Id, Customer = x.Customer, Product = x.Product, Delivered = x.Delivered, DeliveryDate = x.DeliveryDate}));
     }
 
     [HttpGet, Route(ApiRoutes.Order.GetById)]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var query = new GetOrderByIdQuery(id);
-        OrderResponse? response = await _mediator.Send(query, cancellationToken);
-        return response == null ? NotFound() : Ok(response);
+        var model = await _mediator.Send(query, cancellationToken);
+        return model == null ? NotFound() : Ok(new GetOrderResponse { Id = model.Id, Customer = model.Customer, Product = model.Product, Delivered = model.Delivered, DeliveryDate = model.DeliveryDate});
     }
 
     [HttpPost, Route(ApiRoutes.Order.Create)]
     public async Task<IActionResult> Create([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateOrderCommand(request.ProductId, request.CustomerId);
-        var response = await _mediator.Send(command, cancellationToken);
-
-        if (response.IsFailed)
+        var result = await _mediator.Send(command, cancellationToken);
+        if (result.IsFailed)
         {
-            return CreateAndReturnFailedModelState(response.Errors);
+            return CreateAndReturnFailedModelState(result.Errors);
         }
         
-        var created = response.Value;
-        return Created(ApiRoutes.Order.GetById.Replace("{id}", created.Id.ToString()), created);
+        var response = new CreatedOrderResponse { Id = result.Value.Id, Customer = result.Value.Customer, Product = result.Value.Product, Delivered = result.Value.Delivered, DeliveryDate = result.Value.DeliveryDate};
+        var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+        var locationUrl = $"{baseUrl}/{ApiRoutes.Order.GetById.Replace("{id}", response.Id.ToString())}";
+        return Created(locationUrl, response);
     }
 
     [HttpPut, Route(ApiRoutes.Order.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOrderRequest request, CancellationToken cancellationToken)
     {
         var command = new UpdateOrderCommand(id, request.Delivered);
-        Result<OrderResponse> response = await _mediator.Send(command, cancellationToken);
-        if (response.IsFailed)
-        {
-            return CreateAndReturnFailedModelState(response.Errors);
-        }
-        return Ok(response.Value);
+        var result = await _mediator.Send(command, cancellationToken);
+        return result.IsFailed == true ? CreateAndReturnFailedModelState(result.Errors) : Ok(
+            new UpdatedOrderResponse { Id = result.Value.Id, Customer = result.Value.Customer, Product = result.Value.Product, Delivered = result.Value.Delivered, DeliveryDate = result.Value.DeliveryDate});
     }
 
     [HttpDelete, Route(ApiRoutes.Order.Delete)]

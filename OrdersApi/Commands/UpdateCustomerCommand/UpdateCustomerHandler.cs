@@ -7,7 +7,7 @@ using OrdersApi.Repositories.Abstract;
 
 namespace OrdersApi.Commands.UpdateCustomerCommand;
 
-public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Result<CustomerResponse>>
+public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Result<CustomerModel>>
 {
     private readonly IRepository<CustomerEntity> _customerRepository;
     public UpdateCustomerHandler(IRepository<CustomerEntity> customerRepository)
@@ -15,7 +15,7 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Resu
         _customerRepository = customerRepository;
     }
 
-    public async Task<Result<CustomerResponse>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerModel>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         var entity = new CustomerEntity
         {
@@ -27,6 +27,6 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Resu
         if (result == false)
             return Result.Fail(new Error("Can not update customer", new Error("Internal server error")));
 
-        return entity.ToResponse();
+        return entity.ToModel();
     }
 }

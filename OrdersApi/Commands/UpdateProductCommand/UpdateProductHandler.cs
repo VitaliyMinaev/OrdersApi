@@ -3,11 +3,12 @@ using MediatR;
 using OrdersApi.Contracts.Responses;
 using OrdersApi.Entities;
 using OrdersApi.Mappers;
+using OrdersApi.Models;
 using OrdersApi.Repositories.Abstract;
 
 namespace OrdersApi.Commands.UpdateProductCommand;
 
-public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Result<ProductResponse>>
+public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Result<ProductModel>>
 {
     private readonly IRepository<ProductEntity> _productRepository;
     public UpdateProductHandler(IRepository<ProductEntity> productRepository)
@@ -15,7 +16,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Result
         _productRepository = productRepository;
     }
 
-    public async Task<Result<ProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductModel>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
         var entity = new ProductEntity
         {
@@ -30,6 +31,6 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Result
         if (result == false)
             return Result.Fail(new Error("Can not update product's data", new Error("Initial server error")));
 
-        return Result.Ok(entity.ToResponse());
+        return Result.Ok(entity.ToModel());
     }
 }

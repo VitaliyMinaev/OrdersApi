@@ -1,9 +1,10 @@
 using OrdersApi.Contracts.Responses;
 using OrdersApi.Messaging.Abstract;
+using OrdersApi.Models;
 
 namespace OrdersApi.Commands.UpdateProductCommand;
 
-public class UpdateProductCommand : ICommand<ProductResponse>
+public class UpdateProductCommand : ICommand<ProductModel>
 {
     public Guid ProductId { get; }
     public string Name { get; }

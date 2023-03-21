@@ -3,7 +3,7 @@ using OrdersApi.Messaging.Abstract;
 
 namespace OrdersApi.Commands.UpdateCustomerCommand;
 
-public class UpdateCustomerCommand : ICommand<CustomerResponse>
+public class UpdateCustomerCommand : ICommand<CustomerModel>
 {
     public Guid CustomerId { get; }
     public string FullName { get; }

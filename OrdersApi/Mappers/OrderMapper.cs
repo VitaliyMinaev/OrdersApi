@@ -1,29 +1,29 @@
 using Domain;
-using OrdersApi.Contracts.Responses;
 using OrdersApi.Entities;
+using OrdersApi.Models;
 
 namespace OrdersApi.Mappers;
 
 public static class OrderMapper
 {
-    public static OrderResponse ToResponse(this OrderEntity entity)
+    public static OrderModel ToModel(this OrderEntity entity)
     {
-        return new OrderResponse
+        return new OrderModel
         {
             Id = entity.Id,
-            Customer = entity.Customer.ToOrderResponse(),
-            Product = entity.Product.ToResponse(),
+            Customer = entity.Customer.ToOrderModel(),
+            Product = entity.Product.ToModel(),
             Delivered = entity.Delivered,
             DeliveryDate = entity.DeliveryDate
         };
     }
-    public static OrderResponse ToResponse(this OrderDomain domain)
+    public static OrderModel ToModel(this OrderDomain domain)
     {
-        return new OrderResponse
+        return new OrderModel
         {
             Id = domain.Id,
-            Customer = domain.Customer.ToOrderResponse(),
-            Product = domain.Product.ToResponse(),
+            Customer = domain.Customer.ToOrderModel(),
+            Product = domain.Product.ToModel(),
             Delivered = domain.Delivered,
             DeliveryDate = domain.DeliveryDate
         };

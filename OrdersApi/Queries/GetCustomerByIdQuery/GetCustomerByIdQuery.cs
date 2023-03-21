@@ -3,7 +3,7 @@ using OrdersApi.Contracts.Responses;
 
 namespace OrdersApi.Queries.GetCustomerByIdQuery;
 
-public class GetCustomerByIdQuery : IRequest<CustomerResponse?>
+public class GetCustomerByIdQuery : IRequest<CustomerModel?>
 {
     public Guid Id { get; }    
     public GetCustomerByIdQuery(Guid id)

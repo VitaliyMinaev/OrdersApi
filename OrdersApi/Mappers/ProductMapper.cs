@@ -1,15 +1,15 @@
 using Domain;
-using OrdersApi.Contracts.Requests;
-using OrdersApi.Contracts.Responses;
+using OrdersApi.Contracts.Responses.Product;
 using OrdersApi.Entities;
+using OrdersApi.Models;
 
 namespace OrdersApi.Mappers;
 
 public static class ProductMapper
 {
-    public static ProductResponse ToResponse(this ProductEntity entity)
+    public static ProductModel ToModel(this ProductEntity entity)
     {
-        return new ProductResponse
+        return new ProductModel
         {
             Id = entity.Id,
             ReleaseDate = entity.ReleaseDate,
@@ -17,9 +17,9 @@ public static class ProductMapper
             Name = entity.Name
         };
     }
-    public static ProductResponse ToResponse(this ProductDomain domain)
+    public static ProductModel ToModel(this ProductDomain domain)
     {
-        return new ProductResponse
+        return new ProductModel
         {
             Id = domain.Id,
             ReleaseDate = domain.ReleaseDate,

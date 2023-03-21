@@ -3,11 +3,12 @@ using MediatR;
 using OrdersApi.Contracts.Responses;
 using OrdersApi.Entities;
 using OrdersApi.Mappers;
+using OrdersApi.Models;
 using OrdersApi.Repositories.Abstract;
 
 namespace OrdersApi.Commands.CreateProductCommand;
 
-public class CreateProductHandler : IRequestHandler<CreateProductCommand, Result<ProductResponse>>
+public class CreateProductHandler : IRequestHandler<CreateProductCommand, Result<ProductModel>>
 {
     private readonly IRepository<ProductEntity> _productRepository;
     public CreateProductHandler(IRepository<ProductEntity> productRepository)
@@ -15,7 +16,7 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Result
         _productRepository = productRepository;
     }
 
-    public async Task<Result<ProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductModel>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var entity = new ProductEntity
         {
@@ -30,6 +31,6 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Result
         if (result == false)
             return Result.Fail(new Error("Can not add product", new Error("Initial server error")));
 
-        return entity.ToResponse();
+        return entity.ToModel();
     }
 }
