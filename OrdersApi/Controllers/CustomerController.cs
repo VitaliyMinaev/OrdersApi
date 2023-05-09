@@ -5,6 +5,7 @@ using OrdersApi.Commands.CreateCustomerCommand;
 using OrdersApi.Commands.DeleteCustomerCommand;
 using OrdersApi.Commands.UpdateCustomerCommand;
 using OrdersApi.Common.Logging;
+using OrdersApi.Common.Logging.Extensions;
 using OrdersApi.Contracts;
 using OrdersApi.Contracts.Requests;
 using OrdersApi.Contracts.Responses.Customer;
@@ -35,6 +36,15 @@ public class CustomerController : ControllerBase
         {
             var query = new GetAllCustomersQuery();
             var models = await _mediator.Send(query, cancellationToken);
+
+            var log = new LogEntry()
+                .WithClass(nameof(CustomerController))
+                .WithMethod(nameof(GetAll))
+                .WithComment("Successfully received customers")
+                .WithOperation("HttpGet")
+                .WithNoParameters();
+            _logger.LogInformation(log.ToString());
+            
             return Ok(models.Select(x => new GetCustomerResponse { Id = x.Id, FullName = x.FullName, OrdersId = x.OrdersId}));
         }
         catch (Exception e)
