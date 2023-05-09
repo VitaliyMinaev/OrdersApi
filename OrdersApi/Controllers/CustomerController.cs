@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using OrdersApi.Commands.CreateCustomerCommand;
 using OrdersApi.Commands.DeleteCustomerCommand;
 using OrdersApi.Commands.UpdateCustomerCommand;
+using OrdersApi.Common.Logging;
 using OrdersApi.Contracts;
 using OrdersApi.Contracts.Requests;
 using OrdersApi.Contracts.Responses.Customer;
@@ -17,20 +18,31 @@ namespace OrdersApi.Controllers;
 public class CustomerController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly ILogger<CustomerController> _logger;
     private readonly IModelStateCreator _failedModelCreator;
 
-    public CustomerController(IMediator mediator, IModelStateCreator failedModelCreator)
+    public CustomerController(IMediator mediator, IModelStateCreator failedModelCreator, ILogger<CustomerController> logger)
     {
         _mediator = mediator;
         _failedModelCreator = failedModelCreator;
+        _logger = logger;
     }
 
     [HttpGet, Route(ApiRoutes.Customer.GetAll)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
-        var query = new GetAllCustomersQuery();
-        var models = await _mediator.Send(query, cancellationToken);
-        return Ok(models.Select(x => new GetCustomerResponse { Id = x.Id, FullName = x.FullName, OrdersId = x.OrdersId}));
+        try
+        {
+            var query = new GetAllCustomersQuery();
+            var models = await _mediator.Send(query, cancellationToken);
+            return Ok(models.Select(x => new GetCustomerResponse { Id = x.Id, FullName = x.FullName, OrdersId = x.OrdersId}));
+        }
+        catch (Exception e)
+        {
+            var log = new LogEntry {Class = nameof(CustomerController), Method = nameof(GetAll), Comment = e.Message, Operation = nameof(HttpGetAttribute), Parameters = string.Empty};
+            _logger.LogError(e, log.ToString());
+            throw;
+        }
     }
     
     [HttpGet, Route(ApiRoutes.Customer.GetById)]
